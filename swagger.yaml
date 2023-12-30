@@ -1,0 +1,877 @@
+openapi: 3.0.0
+info:
+  title: Piplan API
+  contact: {}
+  version: '1.0'
+servers:
+  - url: http://example.com
+    variables: {}
+paths:
+  /user:
+    post:
+      tags:
+        - USER
+      summary: Add new user
+      operationId: Addnewuser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/AddnewuserRequest'
+                - example:
+                    rut: 11111111-1
+                    first_name: Anakin
+                    last_name: Skywalker
+                    email: testuser@test.cl
+                    password: '12345'
+                    phone: '123456789'
+                    job: Jedi
+                    role: employee
+                    department_id: 3
+            example:
+              rut: 11111111-1
+              first_name: Anakin
+              last_name: Skywalker
+              email: testuser@test.cl
+              password: '12345'
+              phone: '123456789'
+              job: Jedi
+              role: employee
+              department_id: 3
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - apiKey: []
+    get:
+      tags:
+        - USER
+      summary: Get user by params
+      operationId: Getuserbyparams
+      parameters:
+        - name: email
+          in: query
+          description: ''
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: test2136@test.cl
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - apiKey: []
+  /user/login:
+    post:
+      tags:
+        - USER
+      summary: Login user
+      operationId: Loginuser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/LoginuserRequest'
+                - example:
+                    email: testuser@test.cl
+                    password: '12345'
+            example:
+              email: testuser@test.cl
+              password: '12345'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /user/all:
+    get:
+      tags:
+        - USER
+      summary: Get all users
+      operationId: Getallusers
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - apiKey: []
+  /user/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The user ID
+    put:
+      tags:
+        - USER
+      summary: Update user data
+      operationId: Updateuserdata
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/UpdateuserdataRequest'
+                - example:
+                    first_name: Darth
+                    last_name: Vader
+                    email: testuser@test.cl
+                    phone: '123456789'
+            example:
+              first_name: Darth
+              last_name: Vader
+              email: testuser@test.cl
+              phone: '123456789'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - apiKey: []
+  /user/deactivate_account/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The user ID
+    put:
+      tags:
+        - USER
+      summary: Deactivate user
+      operationId: Deactivateuser
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - apiKey: []
+  /department/all:
+    get:
+      tags:
+        - DEPARTMENT
+      summary: Get deparment
+      operationId: Getdeparment
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - apiKey: []
+  /department:
+    post:
+      tags:
+        - DEPARTMENT
+      summary: Post department
+      operationId: Postdepartment
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/PostdepartmentRequest'
+                - example:
+                    department_name: Jedi Order
+            example:
+              department_name: Jedi Order
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - apiKey: []
+  /department/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The department ID
+    put:
+      tags:
+        - DEPARTMENT
+      summary: Update department
+      operationId: Updatedepartment
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/UpdatedepartmentRequest'
+                - example:
+                    department_name: Galactic Empire
+            example:
+              department_name: Galactic Empire
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - apiKey: []
+
+    delete:
+      tags:
+        - DEPARTMENT
+      summary: Delete department
+      operationId: Deletedepartment
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - apiKey: []
+  /project:
+    post:
+      tags:
+        - PROJECT
+      summary: Create project
+      operationId: Createproject
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/CreateprojectRequest'
+                - example:
+                    project_name: Order 66
+                    start_date: 2023-07-27
+                    end_date: 2023-12-30
+                    estimated_end_date: 2024-01-01
+                    project_status: in progress
+                    department_id: 1
+            example:
+              project_name: Order 66
+              start_date: 2023-07-27
+              end_date: 2023-12-30
+              estimated_end_date: 2024-01-01
+              project_status: in progress
+              department_id: 1
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - apiKey: []
+  /project/all:
+    get:
+      tags:
+        - PROJECT
+      summary: Get all projects
+      operationId: Getallprojects
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - apiKey: []
+  /project/filters:
+    get:
+      tags:
+        - PROJECT
+      summary: Get projects by filters
+      operationId: Getprojectsbyfilters
+      parameters:
+        - name: start
+          in: query
+          description: ''
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: 2021-07
+        - name: end
+          in: query
+          description: ''
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: 2024-01
+        - name: status
+          in: query
+          description: ''
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: completed
+        - name: department
+          in: query
+          description: ''
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+            example: 3
+        - name: date_type
+          in: query
+          description: ''
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: start_date
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - apiKey: []
+  /project/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The project ID
+    get:
+      tags:
+        - PROJECT
+      summary: Get project by id
+      operationId: Getprojectbyid
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - apiKey: []
+
+    put:
+      tags:
+        - PROJECT
+      summary: Update project
+      operationId: Updateproject
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/UpdateprojectRequest'
+                - example:
+                    project_name: Order 666
+                    end_date: 2023-11-10
+                    estimated_end_date: 'true'
+                    project_status: completed
+            example:
+              project_name: Order 666
+              end_date: 2023-11-10
+              estimated_end_date: 'true'
+              project_status: completed
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - apiKey: []
+  /project/delete_project/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The project ID
+    put:
+      tags:
+        - PROJECT
+      summary: Delete project
+      operationId: Deleteproject
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - apiKey: []
+  /user_project:
+    post:
+      tags:
+        - USER X PROJECT
+      summary: Create New Register
+      operationId: CreateNewRegister
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/CreateNewRegisterRequest'
+                - example:
+                    user_id: 5
+                    project_id: 31
+            example:
+              user_id: 5
+              project_id: 31
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - apiKey: []
+  /user_project/project/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The project ID
+    get:
+      tags:
+        - USER X PROJECT
+      summary: Get Users By Project
+      operationId: GetUsersByProject
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - apiKey: []
+  /user_project/user/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The user ID
+    get:
+      tags:
+        - USER X PROJECT
+      summary: Get Projects By User
+      operationId: GetProjectsByUser
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - apiKey: []
+  /user_project/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The user x project ID
+    delete:
+      tags:
+        - USER X PROJECT
+      summary: Delete Register
+      operationId: DeleteRegister
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - apiKey: []
+  /project-goal:
+    post:
+      tags:
+        - PROJECT GOAL
+      summary: Create project goal
+      operationId: Createprojectgoal
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/CreateprojectgoalRequest'
+                - example:
+                    project_id: 33
+                    goal_name: test project goal
+                    goal_value: 1
+            example:
+              project_id: 33
+              goal_name: test project goal
+              goal_value: 1
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - apiKey: []
+  /project_goal/{id}:
+    get:
+      tags:
+        - PROJECT GOAL
+      summary: Get project goal by id project
+      operationId: Getprojectgoalbyidproject
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The project ID
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - apiKey: []
+    put:
+      tags:
+        - PROJECT GOAL
+      summary: Update project goal
+      operationId: Updateprojectgoal
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The project goal ID
+          schema:
+            type: integer
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/UpdateprojectgoalRequest'
+                - example:
+                    goal_name: test update project goal
+                    goal_value: 5
+                    is_completed: true
+            example:
+              goal_name: test update project goal
+              goal_value: 5
+              is_completed: true
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - apiKey: []
+    delete:
+      tags:
+        - PROJECT GOAL
+      summary: Delete project goal
+      operationId: Deleteprojectgoal
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The project goal ID
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+        - apiKey: []
+components:
+  schemas:
+    AddnewuserRequest:
+      title: AddnewuserRequest
+      required:
+        - rut
+        - first_name
+        - last_name
+        - email
+        - password
+        - phone
+        - job
+        - role
+        - department_id
+      type: object
+      properties:
+        rut:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        phone:
+          type: string
+        job:
+          type: string
+        role:
+          type: string
+        department_id:
+          type: integer
+          format: int32
+      example:
+        rut: 11111111-1
+        first_name: Anakin
+        last_name: Skywalker
+        email: testuser@test.cl
+        password: '12345'
+        phone: '123456789'
+        job: Jedi
+        role: employee
+        department_id: 3
+    LoginuserRequest:
+      title: LoginuserRequest
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: testuser@test.cl
+        password: '12345'
+    UpdateuserdataRequest:
+      title: UpdateuserdataRequest
+      required:
+        - first_name
+        - last_name
+        - email
+        - phone
+      type: object
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+      example:
+        first_name: Darth
+        last_name: Vader
+        email: testuser@test.cl
+        phone: '123456789'
+    PostdepartmentRequest:
+      title: PostdepartmentRequest
+      required:
+        - department_name
+      type: object
+      properties:
+        department_name:
+          type: string
+      example:
+        department_name: Jedi Order
+    UpdatedepartmentRequest:
+      title: UpdatedepartmentRequest
+      required:
+        - department_name
+      type: object
+      properties:
+        department_name:
+          type: string
+      example:
+        department_name: Galactic Empire
+    CreateprojectRequest:
+      title: CreateprojectRequest
+      required:
+        - project_name
+        - start_date
+        - end_date
+        - estimated_end_date
+        - project_status
+        - department_id
+      type: object
+      properties:
+        project_name:
+          type: string
+        start_date:
+          type: string
+        end_date:
+          type: string
+        estimated_end_date:
+          type: string
+        project_status:
+          type: string
+        department_id:
+          type: integer
+          format: int32
+      example:
+        project_name: Order 66
+        start_date: 2023-07-27
+        end_date: 2023-12-30
+        estimated_end_date: 2024-01-01
+        project_status: in progress
+        department_id: 1
+    UpdateprojectRequest:
+      title: UpdateprojectRequest
+      required:
+        - project_name
+        - end_date
+        - estimated_end_date
+        - project_status
+      type: object
+      properties:
+        project_name:
+          type: string
+        end_date:
+          type: string
+        estimated_end_date:
+          type: string
+        project_status:
+          type: string
+      example:
+        project_name: Order 666
+        end_date: 2023-11-10
+        estimated_end_date: 'true'
+        project_status: completed
+    CreateNewRegisterRequest:
+      title: CreateNewRegisterRequest
+      required:
+        - user_id
+        - project_id
+      type: object
+      properties:
+        user_id:
+          type: integer
+          format: int32
+        project_id:
+          type: integer
+          format: int32
+      example:
+        user_id: 5
+        project_id: 31
+    DeleteRegisterRequest:
+      title: DeleteRegisterRequest
+      required:
+        - user_id
+        - project_id
+      type: object
+      properties:
+        user_id:
+          type: integer
+          format: int32
+        project_id:
+          type: integer
+          format: int32
+      example:
+        user_id: 5
+        project_id: 25
+    CreateprojectgoalRequest:
+      title: CreateprojectgoalRequest
+      required:
+        - project_id
+        - goal_name
+        - goal_value
+      type: object
+      properties:
+        project_id:
+          type: integer
+          format: int32
+        goal_name:
+          type: string
+        goal_value:
+          type: integer
+          format: int32
+      example:
+        project_id: 33
+        goal_name: test project goal
+        goal_value: 1
+    UpdateprojectgoalRequest:
+      title: UpdateprojectgoalRequest
+      required:
+        - goal_name
+        - goal_value
+        - is_completed
+      type: object
+      properties:
+        goal_name:
+          type: string
+        goal_value:
+          type: integer
+          format: int32
+        is_completed:
+          type: boolean
+      example:
+        goal_name: test update project goal
+        goal_value: 5
+        is_completed: true
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      name: token
+      in: header
+security: []
+tags:
+  - name: USER
+  - name: DEPARTMENT
+  - name: PROJECT
+  - name: USER X PROJECT
+  - name: PROJECT GOAL
